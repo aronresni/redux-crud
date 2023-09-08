@@ -8,7 +8,7 @@ const TaskForm = () => {
 
     const [task, setTask] = useState({
         id: "",
-        tittle: "",
+        title: "",
         description: "",
     });
     const hanldeSubmit = (e) => {
@@ -21,16 +21,27 @@ const TaskForm = () => {
     const handleChange = e => {
         setTask({
             ...task,
+            [e.target.name]: e.target.value
 
         })
     }
 
     return (
         <form onSubmit={hanldeSubmit}>
-            <input name='tittle' type="text" placeholder="tittle" onChange={handleChange} />
+            <input
+                name="title"
+                type="text"
+                placeholder="Title"
+                value={task.title} 
+                onChange={handleChange}
+            />
 
-            <textarea name='description' placeholder='description' onChange={handleChange}></textarea>
-
+            <textarea
+                name="description"
+                placeholder="Description"
+                value={task.description} // Vincula el valor del campo con el estado
+                onChange={handleChange}
+            ></textarea>
             <button type='submit'>Save</button>
         </form>
     )
