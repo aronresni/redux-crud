@@ -11,13 +11,15 @@ function App() {
   //entonces traemos el state entramos a las tareas
   //es como llamar el estado en blanco ya que el initial state es []
   useSelector(state => state.tasks)
-
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<TasksList />} />
-        <Route path="/createtask" element={<TaskForm />} />
-      </Routes>
+    <div className='bg-black h-screen text-white'>
+      <div className='backgroundsection h-full'>
+        <Routes>
+          <Route path="/" element={<TasksList />} />
+          <Route path="/createtask" element={<TaskForm />} />
+          <Route path='/edit-task/:id' element={<TaskForm />} />
+        </Routes>
+      </div>
     </div>
 
   )

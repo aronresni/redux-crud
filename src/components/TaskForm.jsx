@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { addTask } from '../features/tasks/taskSlice';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask, editTask } from '../features/tasks/taskSlice';
 import { v4 as uuid } from "uuid"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 const TaskForm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const params = useParams()
+    const tasks = useSelector(state => state.tasks)
 
     const [task, setTask] = useState({
         id: "",
@@ -14,21 +16,35 @@ const TaskForm = () => {
     });
     const hanldeSubmit = (e) => {
         e.preventDefault();
-        dispatch(addTask({
-            ...task,
-            id: uuid(),
+        if (params.id) {
+            dispatch(editTask({ ...task, id: params.id }));
+        } else {
+            dispatch(
+                addTask({
+                    ...task,
+                    id: uuid(),
+                })
+            );
+        }
 
-        }))
-        navigate("/")
+        navigate("/");
+    };
 
-    }
-    const handleChange = e => {
+    //USAMOS EL USE PARAMS PARA SABER SI HAY UN ID, ESTO SIGNIFICARIA QUE ESTAMOS EDITANDO LA TAREA, YA QUE USAMOS EL MISMO COMPONENTE PERO DISTINTO PATH
+    useEffect(() => {
+        if (params.id) {
+            setTask(tasks.find((task) => task.id === params.id));
+        }
+    }, [params, tasks]);
+
+    const handleChange = (e) => {
         setTask({
-            ...task,
-            [e.target.name]: e.target.value
+          ...task,
+          [e.target.name]: e.target.value,
+        });
+      };
 
-        })
-    }
+
 
     return (
         <form onSubmit={hanldeSubmit}>
