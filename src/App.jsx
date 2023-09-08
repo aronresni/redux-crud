@@ -13,7 +13,7 @@ function App() {
   useSelector(state => state.tasks)
   return (
     <div className='bg-black h-screen text-white'>
-      <div className='backgroundsection h-full'>
+      <div className='backgroundsection h-full flex items-center justify-center'>
         <Routes>
           <Route path="/" element={<TasksList />} />
           <Route path="/createtask" element={<TaskForm />} />
