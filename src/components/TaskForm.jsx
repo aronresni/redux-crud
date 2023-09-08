@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTask, editTask } from '../features/tasks/taskSlice';
 import { v4 as uuid } from "uuid"
 import { useNavigate, useParams } from 'react-router-dom';
+import Swal from "sweetalert2"
 const TaskForm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -16,6 +17,14 @@ const TaskForm = () => {
     });
     const hanldeSubmit = (e) => {
         e.preventDefault();
+        if (task.title.trim() === '' || task.description.trim() === "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'El tittle o la description no puede estar vacio',
+            })
+            return;
+        }
         if (params.id) {
             dispatch(editTask({ ...task, id: params.id }));
         } else {
@@ -39,30 +48,36 @@ const TaskForm = () => {
 
     const handleChange = (e) => {
         setTask({
-          ...task,
-          [e.target.name]: e.target.value,
+            ...task,
+            [e.target.name]: e.target.value,
         });
-      };
+    };
 
 
 
     return (
         <form onSubmit={hanldeSubmit}>
-            <input
-                name="title"
-                type="text"
-                placeholder="Title"
-                value={task.title}
-                onChange={handleChange}
-            />
+            <div className='flex-col'>
+                <div className='m-3'>
+                    <input
+                        name="title"
+                        type="text"
+                        placeholder="Title"
+                        value={task.title}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className='m-3'>
 
-            <textarea
-                name="description"
-                placeholder="Description"
-                value={task.description}
-                onChange={handleChange}
-            ></textarea>
-            <button type='submit'>Save</button>
+                    <textarea
+                        name="description"
+                        placeholder="Description"
+                        value={task.description}
+                        onChange={handleChange}
+                    ></textarea>
+                </div>
+                <button type='submit'>Save</button>
+            </div>
         </form>
     )
 }
