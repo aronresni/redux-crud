@@ -16,7 +16,9 @@ const TaskForm = () => {
         dispatch(addTask({
             ...task,
             id: uuid(),
+
         }))
+
     }
     const handleChange = e => {
         setTask({
@@ -32,14 +34,14 @@ const TaskForm = () => {
                 name="title"
                 type="text"
                 placeholder="Title"
-                value={task.title} 
+                value={task.title}
                 onChange={handleChange}
             />
 
             <textarea
                 name="description"
                 placeholder="Description"
-                value={task.description} // Vincula el valor del campo con el estado
+                value={task.description}
                 onChange={handleChange}
             ></textarea>
             <button type='submit'>Save</button>
