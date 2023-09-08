@@ -1,18 +1,25 @@
 import './App.css'
+import { Route, Routes } from 'react-router-dom'
 import { useSelector } from "react-redux"
 import TasksList from './components/TasksList'
 import TaskForm from './components/TaskForm'
+
+
+
 function App() {
-  //useSelectro tiene acceso a todo el estado de la aplicacion,
+  //useSelector tiene acceso a todo el estado de la aplicacion,
   //entonces traemos el state entramos a las tareas
   //es como llamar el estado en blanco ya que el initial state es []
   useSelector(state => state.tasks)
 
   return (
-    <>
-      <TaskForm />
-      <TasksList />
-    </>
+    <div>
+      <Routes>
+        <Route path="/" element={<TasksList />} />
+        <Route path="/createtask" element={<TaskForm />} />
+      </Routes>
+    </div>
+
   )
 }
 
