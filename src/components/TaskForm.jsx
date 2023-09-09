@@ -57,9 +57,9 @@ const TaskForm = () => {
 
     return (
         <form onSubmit={hanldeSubmit}>
-            <div className='flex-col'>
-                <div className='m-3'>
-                    <input
+            <div>
+                <div>
+                    <input className="rounded-xl backdrop-blur-sm bg-white/10 p-2 border border-violet-500 "
                         name="title"
                         type="text"
                         placeholder="Title"
@@ -69,14 +69,14 @@ const TaskForm = () => {
                 </div>
                 <div className='m-3'>
 
-                    <textarea
+                    <textarea className=' rounded-xl backdrop-blur-sm bg-white/10 p-5 border border-violet-500'
                         name="description"
                         placeholder="Description"
                         value={task.description}
                         onChange={handleChange}
                     ></textarea>
                 </div>
-                <button type='submit'>Save</button>
+                <button type='submit' className='btn rounded bg-violet-500 p-2 px-8'>Save</button>
             </div>
         </form>
     )
